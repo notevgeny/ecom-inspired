@@ -4,7 +4,7 @@ import cn from 'classnames';
 export const Social = () => {
   return (
     <div className={style.social}>
-      <div className={cn(style.title, style.categoryTitle, style.socialTitle)}>Связаться с нами</div>
+      <h3 className={cn(style.title, style.categoryTitle, style.socialTitle)}>Связаться с нами</h3>
       <div className={style.socialSubtitle}>Контакты и адреса магазинов</div>
       <ul className={style.socialList}>
         <li>

@@ -48,11 +48,14 @@ html {
   h1,
   h2,
   h3,
+  h4,
   p,
   figure {
     margin: 0;
+    margin-block-end: 0;
   }
   
+
   fieldset {
     padding: 0;
     margin: 0;

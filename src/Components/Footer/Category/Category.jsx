@@ -4,10 +4,10 @@ import cn from 'classnames';
 export const Category = () => {
   return (
     <div className={style.category}>
-        <div className={cn(style.title, style.categoryTitle)}>Каталог</div>
+        <h3 className={cn(style.title, style.categoryTitle)}>Каталог</h3>
         <div className={style.categoryList}>
             <div className={style.categoryListItem}>
-                <div className={style.categorySubtitle}>Женщины</div>
+            <h4 className={style.categorySubtitle}><a className={style.link} href="#">Женщины</a></h4>
                 <ul className={style.categorySublist}>
                     <li><a className={style.link} href="#">Бюстгальтеры</a></li>
                     <li><a className={style.link} href="#">Трусы</a></li>
@@ -18,8 +18,8 @@ export const Category = () => {
                 </ul>
             </div>
             <div className={style.categoryListItem}>
-                <div className={style.categorySubtitle}>Мужчины</div>
-                <ul className={style.categorySublist}>
+                <h4 className={style.categorySubtitle}><a className={style.link} href="#">Мужчины</a></h4>
+                <ul className={style.categorySublist}>  
                     <li><a className={style.link} href="#">Трусы</a></li>
                     <li><a className={style.link} href="#">Носки</a></li>
                     <li><a className={style.link} href="#">Халаты</a></li>

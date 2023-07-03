@@ -9,7 +9,8 @@ import style from './Footer.module.scss';
 
 export const Footer = () => {
   return (
-    <Container>
+    <footer>
+      <Container>
         <div className={style.container}>
             <Category/>
             <Social />
@@ -17,6 +18,8 @@ export const Footer = () => {
             <Copyright />
             <Development />
         </div>
-    </Container>
+      </Container>
+    </footer>
+    
   )
 }
