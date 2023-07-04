@@ -7,12 +7,12 @@ import { Development } from './Development/Development';
 import style from './Footer.module.scss';
 
 
-export const Footer = () => {
+export const Footer = ({ list }) => {
   return (
     <footer>
       <Container>
         <div className={style.container}>
-            <Category/>
+            <Category list={list}/>
             <Social />
             <Contacts />
             <Copyright />

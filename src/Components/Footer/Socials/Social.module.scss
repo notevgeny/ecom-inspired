@@ -27,11 +27,11 @@
       gap: 10px;
     }
   
-    &LinkFB:hover path {
+    &LinkFB:hover svg{
       fill: #3b5998;
     }
   
-    &LinkVK:hover path {
+    &LinkVK:hover svg {
       fill: #0077ff;
     }
 }

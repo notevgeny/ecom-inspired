@@ -1,12 +1,14 @@
-import React from 'react'
-import { Gender } from './Gender/Gender'
-import { Category } from './Category/Category'
+import { Gender } from './Gender/Gender';
+import { Category } from './Category/Category';
+import { Container } from '../../Layout/Container/Container';
 
-export const Navigation = () => {
+export const Navigation = ({ list }) => {
   return (
     <nav>
-        <Gender />
-        <Category />
+      <Container>
+        <Gender list={list}/>
+        <Category list={list}/>
+      </Container>
     </nav>
   )
 }
