@@ -3,21 +3,15 @@ import style from './Category.module.scss';
 import cn from 'classnames';
 
 export const Category = ({ list }) => {
-  const location = useLocation();
+  const {pathname} = useLocation();
+  const gender = pathname.split('/')[1] || 'women';
 
   let newList = '';
 
-  if (location.pathname.match('women')){
-    newList = list.filter(elem => elem.link === 'women');
-  }
-
-  if (!location.pathname.match('women')){
+  gender === 'women' ? 
+    newList = list.filter(elem => elem.link === 'women') 
+    : 
     newList = list.filter(elem => elem.link === 'men');
-  }
-
-  if (location.pathname === '/'){
-    newList = '';
-  }
 
   return (
     <ul className={style.category}>
@@ -25,7 +19,7 @@ export const Category = ({ list }) => {
         item.categories.map(category => (
           <li key={category.id} className={style.categoryListItem}>
             <NavLink 
-              className={({isActive}) => cn(style.link, isActive && style.linkActive)} 
+              className={cn(style.link, gender === category.link && style.linkActive)} 
               to={`${item.link}/${category.link}`}
             > {category.title}
             </NavLink>
