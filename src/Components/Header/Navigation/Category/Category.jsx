@@ -6,28 +6,20 @@ export const Category = ({ list }) => {
   const {pathname} = useLocation();
   const gender = pathname.split('/')[1] || 'women';
 
-  let newList = '';
-
-  gender === 'women' ? 
-    newList = list.filter(elem => elem.link === 'women') 
-    : 
-    newList = list.filter(elem => elem.link === 'men');
-
   return (
     <ul className={style.category}>
-      {newList ? newList.map(item => (
+      {list.map(item => (item.link === gender ?
         item.categories.map(category => (
-          <li key={category.id} className={style.categoryListItem}>
-            <NavLink 
-              className={cn(style.link, gender === category.link && style.linkActive)} 
+          <li key={category.id} className={style.categoryListItem} data-link={item.link}>
+            <NavLink
+              className={cn(style.link, gender === category.link && style.linkActive)}
               to={`${item.link}/${category.link}`}
-            > {category.title}
+            >
+              {category.title}
             </NavLink>
           </li>
-              ))
-        )) : ''
-      }
-      
+        )) : '' 
+      ))}
     </ul>
   )
 }
