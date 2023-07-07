@@ -2,11 +2,11 @@ import React from 'react'
 import { Top } from './Top/Top'
 import { Navigation } from './Navigation/Navigation'
 
-export const Header = ({ list }) => {
+export const Header = () => {
   return (
     <header>
         <Top/>
-        <Navigation list={list}/>
+        <Navigation/>
     </header>
   )
 }
