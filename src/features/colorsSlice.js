@@ -16,18 +16,13 @@ const colorsSlice = createSlice({
         error: null,
         colorsList: []
     },
-    reducers: {
-        setActiveColor: (state, action) => {
-            state.activeColor = action.payload;
-        }
-    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchColors.pending, (state) => {
                 state.status = 'loading';
             })
             .addCase(fetchColors.fulfilled, (state, action) => {
-                state.status = 'success';
+                state.status = 'successed';
                 state.colorsList = action.payload;
             })
             .addCase(fetchColors.rejected, (state, action) => {

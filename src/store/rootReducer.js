@@ -1,10 +1,11 @@
 import { combineReducers } from "@reduxjs/toolkit";
-
 import navigationReducer from '../features/navigationSlice';
-import colorsSlice from "../features/colorsSlice";
+import colorsReducer from "../features/colorsSlice";
+import goodsReducer from "../features/goodsSlice";
 
 export const rootReducer = combineReducers({
     navigation: navigationReducer,
-    colors: colorsSlice
+    colors: colorsReducer,
+    goods: goodsReducer,
 });
 
