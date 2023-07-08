@@ -1,16 +1,24 @@
+import { useEffect, useRef } from 'react';
 import style from './Color.module.scss';
 import cn from 'classnames';
 
 export const Color = ({color, check}) => {
+  const el = '--data-color'
+
+  const colorRef = useRef();
+
+  useEffect(() => {
+    colorRef.current?.style?.setProperty('--data-color', color);
+  }, [color])
+
   return (
     <li>
-      <input 
-        type="radio"
-        defaultChecked={check}
+      <span
         className={cn(style.color, check ? style.colorCheck : '')}
-        style={{"--data-color": color}}
+        ref={colorRef}
+        // style={{"--data-color": color}}
       >
-      </input>
+      </span>
     </li>
     
   )
