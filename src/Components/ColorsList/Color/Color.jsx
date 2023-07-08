@@ -12,13 +12,11 @@ export const Color = ({color, check}) => {
   }, [color])
 
   return (
-    <li>
-      <span
-        className={cn(style.color, check ? style.colorCheck : '')}
-        ref={colorRef}
-        // style={{"--data-color": color}}
-      >
-      </span>
+    <li
+      className={cn(style.color, check ? style.colorCheck : '')}
+      ref={colorRef}
+      // style={{"--data-color": color}}
+    >
     </li>
     
   )
