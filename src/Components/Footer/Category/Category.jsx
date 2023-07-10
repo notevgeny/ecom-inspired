@@ -14,14 +14,19 @@ const {genderList, categories} = useSelector(state => state.navigation);
                 {genderList?.map(gender => (
                     <li key={gender} className={style.categoryListItem}>
                         <h4 className={style.categorySubtitle}>
-                            <NavLink className={style.link} to={gender}>{categories[gender].title}</NavLink>
+                            <NavLink 
+                                className={style.link} 
+                                to={`/catalog/${gender}`}
+                            >
+                                { categories[gender].title }
+                            </NavLink>
                         </h4>
                         <ul className={style.categorySublist}>
                             {categories[gender]?.list?.map(category => (
                                 <li key={category.slug}>
                                     <NavLink 
                                         className={style.link} 
-                                        to={`${gender}/${category.slug}`}
+                                        to={`/catalog/${gender}/${category.slug}`}
                                     >
                                         {category.title}
                                     </NavLink>

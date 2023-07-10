@@ -32,6 +32,4 @@ const colorsSlice = createSlice({
     }
 });
 
-export const {setActiveColorr} = colorsSlice.actions;
-
 export default colorsSlice.reducer;
