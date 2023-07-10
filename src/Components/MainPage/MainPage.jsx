@@ -14,6 +14,8 @@ export const MainPage = () => {
   const genderData = categories[activeGender];
   const categoryData = genderData?.list.find((item) => item.slug === category);
   const bannerData = genderData?.banner;
+  console.log('bannerData: ', bannerData);
+  console.log('categoryData: ', categoryData);
 
   useEffect(() => {
     dispatch(setActiveGender(gender))

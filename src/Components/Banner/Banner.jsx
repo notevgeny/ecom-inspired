@@ -13,6 +13,7 @@ export const Banner = ({ bannerData }) => {
     const bgRef = useRef();
     
     useEffect(() => {
+        console.log(bannerData);
         if (isMobile) {
             bgRef?.current?.style.setProperty('--backgroundImage', `url(${API_URL}/${bannerData.bg.mobile})`);
           } else if (isTablet) {
