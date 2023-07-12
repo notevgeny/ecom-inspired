@@ -11,6 +11,7 @@ import { Count } from '../../Components/Count/Count';
 import style from './ProductCard.module.scss';
 import cn from 'classnames';
 import { ProductSize } from './ProductSize/ProductSize';
+import { Product } from '../Product/Product';
 
 export const ProductCard = () => {
 
@@ -22,8 +23,6 @@ export const ProductCard = () => {
     const [count, setCount] = useState(1);
     const [selectedColor, setSelectedColor] = useState('');
     const [selectedSize, setSelectedSize] = useState('');
-
-    console.log(similarProducts)
 
     const handleIncrement = () => {
         setCount((prevCount) => ++prevCount);
@@ -106,10 +105,16 @@ export const ProductCard = () => {
             </Container>
 
             <Container>
-                <section className={style.similar}>
+                <div className={style.similar}>
                     <h2 className={style.title}>Вам также может понравиться</h2>
-
-                </section>
+                    <div className={style.list}>
+                        {similarProducts?.map(item => (
+                            <li key={item.id}>
+                                <Product {...item} />
+                            </li>
+                        ))}
+                    </div>
+                </div>
             </Container>
         </section>
     )

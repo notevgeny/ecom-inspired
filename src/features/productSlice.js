@@ -12,13 +12,8 @@ export const fetchProduct = createAsyncThunk(
 
 export const fetchSimilarProducts = createAsyncThunk(
     'product/fetchSimilarProducts',
-    async(gender, category, top) => {
-        const url = new URL(GOODS_URL);
-        url.searchParams.append('gender', gender);
-        url.searchParams.append('category', category);
-        url.searchParams.append('top', top);
-        const response = await fetch(url);
-        console.log(response)
+    async(gender) => {
+        const response = await fetch(`${GOODS_URL}?count=4&gender=${gender}`);
         return await response.json();
     }
 )
