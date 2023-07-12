@@ -18,12 +18,12 @@ export const ProductCard = () => {
 
     const dispatch = useDispatch();
     const { id } = useParams();
-    const { product } = useSelector(state => state.product);
+    const { product, similarProducts } = useSelector(state => state.product);
     const [count, setCount] = useState(1);
     const [selectedColor, setSelectedColor] = useState('');
     const [selectedSize, setSelectedSize] = useState('');
 
-    // console.log(product)
+    console.log(similarProducts)
 
     const handleIncrement = () => {
         setCount((prevCount) => ++prevCount);
@@ -59,7 +59,7 @@ export const ProductCard = () => {
                     />
                 }
                 <form className={style.content}>
-                    <strong>Категория товара: {product.category} - Пол: {activeGender} - Топ: {product.top ? 'Yes' : 'No'}</strong>
+                    {/* <strong>Категория товара: {product.category} - Пол: {activeGender} - Топ: {product.top ? 'Yes' : 'No'}</strong> */}
                     <h2 className={style.title}>{product.title}</h2>
                     <p className={style.price}>{product.price} RUB</p>
                     <div className={style.vendorCode}>
