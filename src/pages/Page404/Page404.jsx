@@ -1,6 +1,6 @@
 import { useRouteError } from 'react-router-dom';
 import style from './Page404.module.scss';
-import { Container } from '../Layout/Container/Container';
+import { Container } from '../../Components/Layout/Container/Container';
 
 export const Page404 = () => {
     const error = useRouteError();

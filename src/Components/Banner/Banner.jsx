@@ -15,13 +15,13 @@ export const Banner = ({ bannerData }) => {
     
     useEffect(() => {
         if (isMobile) {
-            setBannerImg(`url(${API_URL}/${bannerData.bg.mobile})`);
+            setBannerImg(`${API_URL}/${bannerData.bg.mobile}`);
           } else if (isTablet) {
-            setBannerImg(`url(${API_URL}/${bannerData.bg.tablet})`);
+            setBannerImg(`${API_URL}/${bannerData.bg.tablet}`);
           } else if (isLaptop) {
-            setBannerImg(`url(${API_URL}/${bannerData.bg.laptop})`);
+            setBannerImg(`${API_URL}/${bannerData.bg.laptop}`);
           } else {
-            setBannerImg(`url(${API_URL}/${bannerData.bg.desktop})`);
+            setBannerImg(`${API_URL}/${bannerData.bg.desktop}`);
           }
     
     }, [isMobile, isTablet, isLaptop, bannerData]);
@@ -31,7 +31,7 @@ export const Banner = ({ bannerData }) => {
             {bannerData && 
             <section 
                 className={style.banner}
-                style={{'backgroundImage': bannerImg}}
+                style={{'backgroundImage': `url(${bannerImg})`}}
             >
                 <Container>
                     <div className={style.content}>
