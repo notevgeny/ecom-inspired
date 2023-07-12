@@ -15,8 +15,10 @@ export const fetchCategory = createAsyncThunk(
     'goods/fetchCategory',
     async (param) => {
         const url = new URL(GOODS_URL);
+        // fetchCategory({gender, category, count: 4, top: true, exclude: [id]})
         for (const key in param) {
             url.searchParams.append(key, param[key]);
+            console.log(url);
         }
         const response = await fetch(url);
         return await response.json();

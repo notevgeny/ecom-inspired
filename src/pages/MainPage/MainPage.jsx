@@ -40,7 +40,7 @@ export const MainPage = () => {
   return (
     <>
       {!category && bannerData && <Banner bannerData={bannerData} />}
-      <Goods categoryData={categoryData} />
+      <Goods title={categoryData?.title} />
     </>
   )
 }

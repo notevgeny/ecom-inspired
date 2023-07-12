@@ -9,22 +9,12 @@ export const fetchProduct = createAsyncThunk(
     }
 )
 
-
-export const fetchSimilarProducts = createAsyncThunk(
-    'product/fetchSimilarProducts',
-    async(gender) => {
-        const response = await fetch(`${GOODS_URL}?count=4&gender=${gender}`);
-        return await response.json();
-    }
-)
-
 const productSlice = createSlice({
     name: 'product',
     initialState: {
         status: 'idle',
         error: null,
         product: {},
-        similarProducts: [],
     },
     extraReducers: (builder) => {
         builder
@@ -36,18 +26,6 @@ const productSlice = createSlice({
                 state.product = action.payload;
             })
             .addCase(fetchProduct.rejected, (state, action) => {
-                state.status = 'failed';
-                state.error = action.error.message;
-            })
-
-            .addCase(fetchSimilarProducts.pending, (state) => {
-                state.status = 'loading';
-            })
-            .addCase(fetchSimilarProducts.fulfilled, (state, action) => {
-                state.status = 'successed';
-                state.similarProducts = action.payload;
-            })
-            .addCase(fetchSimilarProducts.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.error.message;
             })

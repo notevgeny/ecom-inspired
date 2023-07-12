@@ -1,25 +1,22 @@
 import { useState, useEffect } from 'react';
 import { Container } from '../../Components/Layout/Container/Container';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProduct, fetchSimilarProducts } from '../../features/productSlice';
+import { fetchProduct } from '../../features/productSlice';
 import { useParams } from 'react-router-dom';
 import { API_URL } from '../../const';
 import { ColorsList } from '../../Components/ColorsList/ColorsList';
 import { ReactComponent as Like } from '../../assets/heart.svg';
 import { Count } from '../../Components/Count/Count';
-
 import style from './ProductCard.module.scss';
 import cn from 'classnames';
 import { ProductSize } from './ProductSize/ProductSize';
-import { Product } from '../Product/Product';
+import { Goods } from '../Goods/Goods';
+import { fetchCategory } from '../../features/goodsSlice';
 
 export const ProductCard = () => {
-
-    const { activeGender } = useSelector(state => state.navigation);
-
     const dispatch = useDispatch();
     const { id } = useParams();
-    const { product, similarProducts } = useSelector(state => state.product);
+    const { product } = useSelector(state => state.product);
     const [count, setCount] = useState(1);
     const [selectedColor, setSelectedColor] = useState('');
     const [selectedSize, setSelectedSize] = useState('');
@@ -44,78 +41,74 @@ export const ProductCard = () => {
 
     useEffect(() => {
         dispatch(fetchProduct(id))
-        dispatch(fetchSimilarProducts(activeGender, product.category, product.top))
-    }, [id, activeGender, product.category, product.top, dispatch])
+    }, [id, dispatch])
+
+    useEffect(() => {
+        const {id, gender, category } = product;
+        dispatch(fetchCategory({gender, category, count: 4, top: true, exclude: [id]}))
+        // dispatch(fetchCategory({count:4, gender})) // !!
+    }, [product, dispatch])
 
     return (
-        <section className={style.card}>
-            <Container className={style.container}>
-                {product.pic && 
-                    <img 
-                        src={`${API_URL}/${product.pic}`} 
-                        className={style.image} 
-                        alt={product.title} 
-                    />
-                }
-                <form className={style.content}>
-                    {/* <strong>Категория товара: {product.category} - Пол: {activeGender} - Топ: {product.top ? 'Yes' : 'No'}</strong> */}
-                    <h2 className={style.title}>{product.title}</h2>
-                    <p className={style.price}>{product.price} RUB</p>
-                    <div className={style.vendorCode}>
-                        <span className={style.subtitle}>Артикул</span>
-                        <span className={style.id}>{product.id}</span>
-                    </div>
-
-                    <div className={style.color}>
-                        <p className={cn(style.subtitle, style.colorTitle)}>Цвет</p>
-                        <ColorsList 
-                            colors={product.colors} 
-                            selectedColor={selectedColor} 
-                            handleSelectColor={handleSelectColor} 
+        <>
+            <section className={style.card}>
+                <Container className={style.container}>
+                    {product.pic && 
+                        <img 
+                            src={`${API_URL}/${product.pic}`} 
+                            className={style.image} 
+                            alt={product.title} 
                         />
-                    </div>
-              
-                    <ProductSize 
-                        size={product.size}
-                        selectedSize={selectedSize}
-                        handleSelectSize={handleSelectSize} 
-                    />
+                    }
+                    <form className={style.content}>
+                        <h2 className={style.title}>{product.title}</h2>
+                        <p className={style.price}>{product.price} RUB</p>
+                        <div className={style.vendorCode}>
+                            <span className={style.subtitle}>Артикул</span>
+                            <span className={style.id}>{product.id}</span>
+                        </div>
 
-                    <div className={style.description}>
-                        <p className={cn(style.subtitle, style.descriptionTitle)}>Описание</p>
-                        <p className={style.descriptionText}>{product.description}</p>
-                    </div>
-                    <div className={style.control}>
-                        <Count
-                            className={style.count}
-                            count={count} 
-                            handleIncrement={handleIncrement}
-                            handleDecrement={handleDecrement}
+                        <div className={style.color}>
+                            <p className={cn(style.subtitle, style.colorTitle)}>Цвет</p>
+                            <ColorsList 
+                                colors={product.colors} 
+                                selectedColor={selectedColor} 
+                                handleSelectColor={handleSelectColor} 
+                            />
+                        </div>
+                
+                        <ProductSize 
+                            size={product.size}
+                            selectedSize={selectedSize}
+                            handleSelectSize={handleSelectSize} 
                         />
-                        <button className={style.addCart} type='submit'>В корзину</button>
-                        <button 
-                            className={style.favorite} 
-                            aria-label='Добавить в избранное' 
-                            type='button'
-                        >
-                            <Like />
-                        </button>
-                    </div>
-                </form>
-            </Container>
 
-            <Container>
-                <div className={style.similar}>
-                    <h2 className={style.title}>Вам также может понравиться</h2>
-                    <div className={style.list}>
-                        {similarProducts?.map(item => (
-                            <li key={item.id}>
-                                <Product {...item} />
-                            </li>
-                        ))}
-                    </div>
-                </div>
-            </Container>
-        </section>
+                        <div className={style.description}>
+                            <p className={cn(style.subtitle, style.descriptionTitle)}>Описание</p>
+                            <p className={style.descriptionText}>{product.description}</p>
+                        </div>
+                        <div className={style.control}>
+                            <Count
+                                className={style.count}
+                                count={count} 
+                                handleIncrement={handleIncrement}
+                                handleDecrement={handleDecrement}
+                            />
+                            <button className={style.addCart} type='submit'>В корзину</button>
+                            <button 
+                                className={style.favorite} 
+                                aria-label='Добавить в избранное' 
+                                type='button'
+                            >
+                                <Like />
+                            </button>
+                        </div>
+                    </form>
+                </Container>
+            </section>
+
+            <Goods title={'Вам также может понравиться'} />
+        </>
+        
     )
 }
