@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Container } from '../../Components/Layout/Container/Container';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProduct } from '../../features/productSlice';
+import { fetchProduct, fetchSimilarProducts } from '../../features/productSlice';
 import { useParams } from 'react-router-dom';
 import { API_URL } from '../../const';
 import { ColorsList } from '../../Components/ColorsList/ColorsList';
@@ -14,12 +14,16 @@ import { ProductSize } from './ProductSize/ProductSize';
 
 export const ProductCard = () => {
 
+    const { activeGender } = useSelector(state => state.navigation);
+
     const dispatch = useDispatch();
     const { id } = useParams();
     const { product } = useSelector(state => state.product);
     const [count, setCount] = useState(1);
     const [selectedColor, setSelectedColor] = useState('');
     const [selectedSize, setSelectedSize] = useState('');
+
+    // console.log(product)
 
     const handleIncrement = () => {
         setCount((prevCount) => ++prevCount);
@@ -36,13 +40,13 @@ export const ProductCard = () => {
     }
 
     const handleSelectSize = (e) => {
-        console.log(e.target.value);
         setSelectedSize(e.target.value);
     }
 
     useEffect(() => {
-        dispatch(fetchProduct(id));
-    }, [id, dispatch])
+        dispatch(fetchProduct(id))
+        dispatch(fetchSimilarProducts(activeGender, product.category, product.top))
+    }, [id, activeGender, product.category, product.top, dispatch])
 
     return (
         <section className={style.card}>
@@ -55,6 +59,7 @@ export const ProductCard = () => {
                     />
                 }
                 <form className={style.content}>
+                    <strong>Категория товара: {product.category} - Пол: {activeGender} - Топ: {product.top ? 'Yes' : 'No'}</strong>
                     <h2 className={style.title}>{product.title}</h2>
                     <p className={style.price}>{product.price} RUB</p>
                     <div className={style.vendorCode}>
@@ -98,6 +103,13 @@ export const ProductCard = () => {
                         </button>
                     </div>
                 </form>
+            </Container>
+
+            <Container>
+                <section className={style.similar}>
+                    <h2 className={style.title}>Вам также может понравиться</h2>
+
+                </section>
             </Container>
         </section>
     )
