@@ -77,7 +77,7 @@ export const Pagination = () => {
                 <button 
                     className={style.arrow}
                     onClick={handleNextPage}
-                    disabled={page >= pages || pages <= 3}
+                    disabled={page >= pages || pages < 2}
                 >
                     <NextBtnSVG />
                 </button>
