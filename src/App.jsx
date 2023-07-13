@@ -1,6 +1,8 @@
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 import { MainPage } from "./pages/MainPage/MainPage";
-import { Page404 } from "./pages/Page404/Page404"
+import { Page404 } from "./pages/Page404/Page404";
+import { CartPage } from './pages/CartPage/CartPage';
+import { FavoritePage } from './pages/FavoritePage/FavoritePage';
 import { Root } from "./routes/Root";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -13,8 +15,10 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Root />} >
       <Route index element={<MainPage />} />
-      <Route path="catalog/:gender/:category?" element={<MainPage />} />
-      <Route path="product/:id" element={<ProductPage />}/>
+      <Route path="/catalog/:gender/:category?" element={<MainPage />} />
+      <Route path="/product/:id" element={<ProductPage />}/>
+      <Route path='/cart' element={<CartPage />} />
+      <Route path='/favorites' element={<FavoritePage />} />
       <Route path='*' element={<Page404 />} />
     </Route>
   )

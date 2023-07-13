@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import { API_URL } from '../../const';
 import style from './Product.module.scss';
-import { ReactComponent as Like } from '../../assets/heart.svg';
 import { ColorsList } from '../ColorsList/ColorsList';
+import { ButtonLike } from '../ButtonLike/ButtonLike';
 
 export const Product = ({id, pic, title, price, colors}) => {
     return (
@@ -13,9 +13,7 @@ export const Product = ({id, pic, title, price, colors}) => {
             </NavLink>
             <div className={style.row}>
                 <p className={style.price}>{price} RUB</p>
-                <button className={style.favorite}>
-                    <Like />
-                </button>
+                <ButtonLike id={id} />
             </div>
             <ColorsList colors={colors}/>
         </article>

@@ -5,13 +5,13 @@ import { fetchProduct } from '../../features/productSlice';
 import { useParams } from 'react-router-dom';
 import { API_URL } from '../../const';
 import { ColorsList } from '../../Components/ColorsList/ColorsList';
-import { ReactComponent as Like } from '../../assets/heart.svg';
 import { Count } from '../../Components/Count/Count';
 import style from './ProductCard.module.scss';
 import cn from 'classnames';
 import { ProductSize } from './ProductSize/ProductSize';
 import { Goods } from '../Goods/Goods';
-import { fetchCategory } from '../../features/goodsSlice';
+import { fetchCategory, fetchGender } from '../../features/goodsSlice';
+import { ButtonLike } from '../ButtonLike/ButtonLike';
 
 export const ProductCard = () => {
     const dispatch = useDispatch();
@@ -46,7 +46,7 @@ export const ProductCard = () => {
     useEffect(() => {
         const {id, gender, category } = product;
         dispatch(fetchCategory({gender, category, count: 4, top: true, exclude: [id]}))
-        // dispatch(fetchCategory({count:4, gender})) // !!
+        // dispatch(fetchGender(gender))
     }, [product, dispatch])
 
     return (
@@ -95,13 +95,7 @@ export const ProductCard = () => {
                                 handleDecrement={handleDecrement}
                             />
                             <button className={style.addCart} type='submit'>В корзину</button>
-                            <button 
-                                className={style.favorite} 
-                                aria-label='Добавить в избранное' 
-                                type='button'
-                            >
-                                <Like />
-                            </button>
+                            <ButtonLike id={id} />
                         </div>
                     </form>
                 </Container>
