@@ -30,6 +30,8 @@ export const Pagination = () => {
 
     const renderPaginationItems = () => {
         const paginationitems = [];
+
+        // let startPage = Math.max(1, page - 1);
         let startPage = 0;
 
         if (page <= pages - 1){
@@ -63,7 +65,7 @@ export const Pagination = () => {
                 <button 
                     className={style.arrow}
                     onClick={handlePrevPage}
-                    disabled={page <= 2}
+                    disabled={page <= 1}
                 >
                     <PrevBtnSVG />
                 </button>
@@ -75,7 +77,7 @@ export const Pagination = () => {
                 <button 
                     className={style.arrow}
                     onClick={handleNextPage}
-                    disabled={page >= pages - 1 || pages <= 3}
+                    disabled={page >= pages || pages <= 3}
                 >
                     <NextBtnSVG />
                 </button>
