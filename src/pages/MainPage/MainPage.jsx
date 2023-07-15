@@ -30,11 +30,11 @@ export const MainPage = () => {
 
   useEffect(() => {
     if (gender && category){
-      const param = {gender, category};
+      const params = {gender, category};
       if (page) {
-        param.page = page;
+        params.page = page;
       }
-      dispatch(fetchCategory(param))
+      dispatch(fetchCategory(params))
       return;
     }
     if (gender){

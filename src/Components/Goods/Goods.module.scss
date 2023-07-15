@@ -6,6 +6,7 @@
     text-transform: uppercase;
     padding-bottom: 25px;
     border-bottom: 1px solid #DCDCDC;
+    position: relative;
   
     @media (max-width: 768px) {
       font-size: 24px;
@@ -38,5 +39,12 @@
       padding-top: 16px;
     }
   
+  }
+
+  .count {
+    font-size: 14px;
+    color: dimgray;
+    position: absolute;
+    top: -10px;
   }
   

@@ -11,6 +11,7 @@ export const ColorsList = ({ colors, selectedColor, handleSelectColor }) => {
         <div className={style.colorsList}>
             {colors?.map((id, i) => {
                 const color = colorsList.find(color => color.id === id);
+
                 return <ColorLabel 
                             key={id} 
                             color={color} 

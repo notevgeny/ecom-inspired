@@ -10,13 +10,16 @@ import style from './ProductCard.module.scss';
 import cn from 'classnames';
 import { ProductSize } from './ProductSize/ProductSize';
 import { Goods } from '../Goods/Goods';
-import { fetchCategory, fetchGender } from '../../features/goodsSlice';
+import { fetchCategory } from '../../features/goodsSlice';
 import { ButtonLike } from '../ButtonLike/ButtonLike';
+import { addToCart } from '../../features/cartSlice';
 
 export const ProductCard = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const { product } = useSelector(state => state.product);
+    const { gender, category, colors } = product;
+    const { colorsList } = useSelector(state => state.colors);
     const [count, setCount] = useState(1);
     const [selectedColor, setSelectedColor] = useState('');
     const [selectedSize, setSelectedSize] = useState('');
@@ -44,10 +47,14 @@ export const ProductCard = () => {
     }, [id, dispatch])
 
     useEffect(() => {
-        const {id, gender, category } = product;
-        dispatch(fetchCategory({gender, category, count: 4, top: true, exclude: [id]}))
-        // dispatch(fetchGender(gender))
-    }, [product, dispatch])
+        dispatch(fetchCategory({ gender, category, count: 4, top: true, exclude: id }))
+    }, [gender, category, id, dispatch]);
+
+    useEffect(() => {
+        if (colorsList?.length && colors?.length) {
+            setSelectedColor(colorsList.find(color => color.id === colors[0]).title)
+        }
+    }, [colorsList, colors]);
 
     return (
         <>
@@ -60,7 +67,17 @@ export const ProductCard = () => {
                             alt={product.title} 
                         />
                     }
-                    <form className={style.content}>
+                    <form className={style.content} onSubmit={(e) => {
+                        e.preventDefault();
+                        dispatch(
+                            addToCart({
+                                id, 
+                                color: selectedColor, 
+                                size: selectedSize, 
+                                count
+                            })
+                        );
+                    }}>
                         <h2 className={style.title}>{product.title}</h2>
                         <p className={style.price}>{product.price} RUB</p>
                         <div className={style.vendorCode}>
@@ -71,7 +88,7 @@ export const ProductCard = () => {
                         <div className={style.color}>
                             <p className={cn(style.subtitle, style.colorTitle)}>Цвет</p>
                             <ColorsList 
-                                colors={product.colors} 
+                                colors={colors} 
                                 selectedColor={selectedColor} 
                                 handleSelectColor={handleSelectColor} 
                             />
