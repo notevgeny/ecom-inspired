@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 export const Goods = ({ title }) => {
 
-    const {goodsList, totalCount } = useSelector(state => state.goods);
+    const { goodsList, totalCount } = useSelector(state => state.goods);
 
     return (
         <section className={style.goods}>

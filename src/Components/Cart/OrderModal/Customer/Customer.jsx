@@ -1,7 +1,7 @@
 import style from './Customer.module.scss';
 
 
-export const Customer = (values) => {
+export const Customer = ({ values }) => {
   return (
     <ul className={style.customer}>
       <li className={style.customerItem}>

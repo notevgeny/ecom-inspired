@@ -8,7 +8,7 @@ export const sendOrder = createAsyncThunk(
     async (data) => {
         const url = new URL(ORDER_URL);
         const response = await fetch(url, {
-            method: 'POST',
+            method: "POST",
             body: JSON.stringify(data),
         });
         return await response.json();

@@ -10,16 +10,21 @@ export const OrderModal = () => {
 
   const { 
     order: { values, order, id, totalPrice },
+    
   } = useSelector(state => state.cart);
   const { goodsList } = useSelector(state => state.goods);
 
   const handleCloseModal = () => {
-    // dispatch(clearCart());
+    dispatch(clearCart());
+  }
+
+  const handleStopPropagation = (e) => {
+    e.stopPropagation();
   }
 
   return (
     <div className={style.modal} onClick={handleCloseModal}>
-      <div className={style.body}>
+      <div className={style.body} onClick={handleStopPropagation}>
         <h2 className={style.title}>Заказ #{id} оформлен</h2>
         <div className={style.description}>
           <p>Спасибо за выбор нашего магазина!</p>
@@ -28,8 +33,7 @@ export const OrderModal = () => {
           <Customer values={values} />
           <ul className={style.goods}>
             {order.map(item => {
-              const product = goodsList?.find(product => product.id === id);
-              console.log('productPic: ', product?.pic);
+              const product = goodsList?.find(product => product.id === item.id);
               return (
               <li 
                 className={style.goodsItem} 
@@ -40,7 +44,7 @@ export const OrderModal = () => {
                 src={`${API_URL}/${product?.pic}`} 
                 alt={product?.title} 
               />
-              <p className={style.goodsCount}>X{item.count}</p>
+              <p className={style.goodsCount}>x{item.count}</p>
             </li>
             )
             })}
