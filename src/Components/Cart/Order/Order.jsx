@@ -3,23 +3,34 @@ import { Container } from '../../Layout/Container/Container';
 import style from './Order.module.scss';
 import { PatternFormat } from 'react-number-format';
 import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { sendOrder } from '../../../features/cartSlice';
 
 export const Order = ({ cartItems }) => {
 
+  const dispatch = useDispatch();
+
   const handleSubmitOrder = (values) => {
-    console.log({ cartItems, values })
+    dispatch(sendOrder({ order: cartItems, values }))
   }
 
   const validationSchema = Yup.object({
-    name: Yup.string().required('Введите ФИО'),
+    fio: Yup.string().required('Введите ФИО'),
     address: Yup.string().test(
       'deliveryTest',
       'Введите адрес доставки',
-      function (value) {this.parent.delivery === 'delivery' ? !!value : true}
-    ).required('Введите адрес'),
-    phone: Yup.string().required('Введите номер телефона').matches(/^\+\d{1}\(\d{3}\)\-\d{3}\-\d{4}$/, 'Некорректный формат номера'),
-    email: Yup.string().email('Введите в формате email@domain.ru').required('Введите email'),
-    delivery: Yup.string().required('Выберите способ доставки')
+      function (value) {
+        return this.parent.delivery === 'delivery' ? !!value : true;
+      }
+    ),
+    phone: Yup.string()
+      .required('Введите номер телефона')
+      .matches(/^\+\d{1}\(\d{3}\)\-\d{3}\-\d{4}$/, 'Некорректный формат номера'),
+    email: Yup.string()
+      .email('Введите в формате email@domain.ru')
+      .required('Введите email'),
+    delivery: Yup.string()
+      .required('Выберите способ доставки')
   })
 
   return (
@@ -28,7 +39,7 @@ export const Order = ({ cartItems }) => {
         <h2 className={style.title}>Оформление заказа</h2>
           <Formik
             initialValues={{
-              name: '',
+              fio: '',
               address: '',
               phone: '',
               email: '',
@@ -44,11 +55,11 @@ export const Order = ({ cartItems }) => {
                     className={style.input}
                     type='text'
                     placeholder='ФИО*'
-                    name='name'
+                    name='fio'
                   />
                   <ErrorMessage 
                     className={style.error} 
-                    name='name'
+                    name='fio'
                     component={'span'} 
                   />
                 </label>

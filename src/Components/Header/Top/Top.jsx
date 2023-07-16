@@ -11,7 +11,7 @@ import { toggleSearch } from '../../../features/searchSlice';
 
 export const Top = () => {
     const { cartItems } = useSelector(state => state.cart);
-    // const { countItems } = useSelector(state => state.cart); 
+    const favorites = useSelector(state => state.favorites);
     let sumCount = cartItems.reduce((acc, item) => +item.count + +acc, [0]);
 
     const dispatch = useDispatch();
@@ -35,13 +35,13 @@ export const Top = () => {
                         <li className={style.navItem}>
                             <NavLink className={style.link} to="/cart">
                                 <CartSVG />
-                                {/* {countItems && <span className={style.linkCount}>{countItems}</span>} */}
                                 {sumCount > 0 && <span className={style.linkCount}>{sumCount}</span>}
                             </NavLink>
                         </li>
                         <li className={style.navItem}>
                             <NavLink className={cn(style.link, style.like)} to="/favorites">
                                 <LikeSVG />
+                                {favorites?.length > 0 && <span className={style.linkCount}>{favorites?.length}</span>}
                             </NavLink>
                         </li>
                     </ul>

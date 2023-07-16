@@ -1,11 +1,14 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { Container } from '../Layout/Container/Container';
 import style from './Search.module.scss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
+import { toggleSearch } from '../../features/searchSlice';
 
 export const Search = () => {
+
+    const dispatch = useDispatch();
 
     const { openSearch } = useSelector(state => state.search);
 
@@ -15,9 +18,11 @@ export const Search = () => {
 
     const navigate = useNavigate();
 
-    const handleSubmitSearch = ({query}) => {
+    const handleSubmitSearch = ({query}, { resetForm }) => {
         if (query.trim()) {
             navigate(`/search?q=${query}`);
+            resetForm();
+            dispatch(toggleSearch(false))
         }
     }
 

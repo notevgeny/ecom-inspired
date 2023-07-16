@@ -3,8 +3,14 @@ import { API_URL } from '../../const';
 import style from './Product.module.scss';
 import { ColorsList } from '../ColorsList/ColorsList';
 import { ButtonLike } from '../ButtonLike/ButtonLike';
+import { useEffect } from 'react';
 
 export const Product = ({id, pic, title, price, colors}) => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, [])
+    
     return (
         <article className={style.product}>
             <NavLink className={style.link} to={`/product/${id}`}>
