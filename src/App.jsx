@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { fetchNavigation } from "./features/navigationSlice";
 import { fetchColors } from "./features/colorsSlice";
 import { ProductPage } from "./pages/ProductPage/ProductPage";
+import { SearchPage } from "./pages/SearchPage/SearchPage";
 
 
 const router = createBrowserRouter(
@@ -19,6 +20,7 @@ const router = createBrowserRouter(
       <Route path="/product/:id" element={<ProductPage />}/>
       <Route path='/cart' element={<CartPage />} />
       <Route path='/favorites' element={<FavoritePage />} />
+      <Route path='/search' element={<SearchPage />} />
       <Route path='*' element={<Page404 />} />
     </Route>
   )

@@ -1,7 +1,131 @@
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { Container } from '../../Layout/Container/Container';
 import style from './Order.module.scss';
+import { PatternFormat } from 'react-number-format';
+import * as Yup from 'yup';
 
-export const Order = () => {
+export const Order = ({ cartItems }) => {
+
+  const handleSubmitOrder = (values) => {
+    console.log({ cartItems, values })
+  }
+
+  const validationSchema = Yup.object({
+    name: Yup.string().required('Введите ФИО'),
+    address: Yup.string().test(
+      'deliveryTest',
+      'Введите адрес доставки',
+      function (value) {this.parent.delivery === 'delivery' ? !!value : true}
+    ).required('Введите адрес'),
+    phone: Yup.string().required('Введите номер телефона').matches(/^\+\d{1}\(\d{3}\)\-\d{3}\-\d{4}$/, 'Некорректный формат номера'),
+    email: Yup.string().email('Введите в формате email@domain.ru').required('Введите email'),
+    delivery: Yup.string().required('Выберите способ доставки')
+  })
+
   return (
-    <div>Order</div>
+    <section>
+      <Container>
+        <h2 className={style.title}>Оформление заказа</h2>
+          <Formik
+            initialValues={{
+              name: '',
+              address: '',
+              phone: '',
+              email: '',
+              delivery: ''
+            }}
+            onSubmit={handleSubmitOrder}
+            validationSchema={validationSchema}
+          >
+            <Form className={style.form}>
+              <fieldset className={style.personal}>
+                <label className={style.label}>
+                  <Field 
+                    className={style.input}
+                    type='text'
+                    placeholder='ФИО*'
+                    name='name'
+                  />
+                  <ErrorMessage 
+                    className={style.error} 
+                    name='name'
+                    component={'span'} 
+                  />
+                </label>
+
+                <label className={style.label}>
+                  <Field 
+                    className={style.input}
+                    type='text'
+                    placeholder='Адрес доставки'
+                    name='address'
+                  />
+                  <ErrorMessage 
+                    className={style.error} 
+                    name='address'
+                    component={'span'} 
+                  />
+                </label>
+
+                <label className={style.label}>
+                  <Field 
+                    as={PatternFormat} 
+                    className={style.input}
+                    format="+#(###)-###-####"
+                    mask="_"
+                    placeholder='7(999)-123-4567*'
+                    name='phone'
+                  />
+                  <ErrorMessage 
+                    className={style.error} 
+                    name='phone'
+                    component={'span'} 
+                  />
+                </label>
+
+                <label className={style.label}>
+                  <Field 
+                    className={style.input}
+                    type="email"
+                    placeholder='Email*'
+                    name='email'
+                  />
+                  <ErrorMessage 
+                    className={style.error} 
+                    name='email'
+                    component={'span'} 
+                  />
+                </label>
+              </fieldset>
+              <fieldset className={style.radioList}>
+                <label className={style.radio}>
+                  <Field 
+                    className={style.radioInput}
+                    type="radio"
+                    name='delivery'
+                    value='delivery'
+                  />
+                  <span>Доставка</span>
+                </label>
+                <label className={style.radio}>
+                  <Field 
+                    className={style.radioInput}
+                    type="radio"
+                    name='delivery'
+                    value='self'
+                  />
+                  <span>Самовывоз</span>
+                </label>
+                <ErrorMessage 
+                    className={style.error} 
+                    name='delivery'
+                    component={'span'} 
+                  />
+              </fieldset>
+              <button className={style.submit} type='submit'>Оформить</button>
+            </Form>
+          </Formik>
+      </Container>
+    </section>
   )
 }

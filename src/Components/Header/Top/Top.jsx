@@ -6,11 +6,19 @@ import { NavLink } from 'react-router-dom';
 import { ReactComponent as LikeSVG } from '../../../assets/heart.svg';
 import { ReactComponent as SearchSVG } from '../../../assets/search.svg';
 import { ReactComponent as CartSVG } from '../../../assets/cart.svg';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleSearch } from '../../../features/searchSlice';
 
 export const Top = () => {
-    const { cartItems } = useSelector(state => state.cart); 
+    const { cartItems } = useSelector(state => state.cart);
+    // const { countItems } = useSelector(state => state.cart); 
     let sumCount = cartItems.reduce((acc, item) => +item.count + +acc, [0]);
+
+    const dispatch = useDispatch();
+
+    const handleOpenSearch = () => {
+        dispatch(toggleSearch());
+    }
 
     return (
         <div className={style.top}>
@@ -20,14 +28,15 @@ export const Top = () => {
                 <div className={style.navigation}>
                     <ul className={style.navList}>
                         <li className={style.navItem}>
-                            <button className={style.link}>
+                            <button className={style.link} onClick={handleOpenSearch}>
                                 <SearchSVG />
                             </button>
                         </li>
                         <li className={style.navItem}>
                             <NavLink className={style.link} to="/cart">
                                 <CartSVG />
-                                <span className={style.linkCount}>{sumCount}</span>
+                                {/* {countItems && <span className={style.linkCount}>{countItems}</span>} */}
+                                {sumCount > 0 && <span className={style.linkCount}>{sumCount}</span>}
                             </NavLink>
                         </li>
                         <li className={style.navItem}>
