@@ -2,8 +2,11 @@ import style from './Goods.module.scss';
 import { Container } from '../Layout/Container/Container';
 import { Product } from '../Product/Product';
 import { Pagination } from '../Pagination/Pagination';
+import { useSelector } from 'react-redux';
 
 export const Goods = ({ title, count }) => {
+
+    const {goodsList} = useSelector(state => state.goods);
 
     return (
         <section className={style.goods}>
