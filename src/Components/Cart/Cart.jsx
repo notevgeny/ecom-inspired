@@ -22,7 +22,7 @@ export const Cart = ({ cartItems, goodsList }) => {
         <section className={style.cart}>
             <Container>
                 <h2 className={style.title}>Корзина</h2>
-                {goodsList.length ? 
+                {cartItems.length ? 
                     <ul className={style.list}>
                         {cartItems.map((item) => (
                             <li key={`${item.id}-${item.color}-${item.size}`} className={style.item}>

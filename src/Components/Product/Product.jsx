@@ -3,9 +3,12 @@ import { API_URL } from '../../const';
 import style from './Product.module.scss';
 import { ColorsList } from '../ColorsList/ColorsList';
 import { ButtonLike } from '../ButtonLike/ButtonLike';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { ProductPreloader } from '../Preloader/Preloader';
 
 export const Product = ({id, pic, title, price, colors}) => {
+
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -14,7 +17,14 @@ export const Product = ({id, pic, title, price, colors}) => {
     return (
         <article className={style.product}>
             <NavLink className={style.link} to={`/product/${id}`}>
-                <img className={style.image} src={`${API_URL}/${pic}`} alt={title} />
+                <img 
+                    className={style.image} 
+                    src={`${API_URL}/${pic}`} 
+                    alt={title}
+                    style={{display: loading ? "none" : "block"}}
+                    onLoad={()=>{setLoading(false)}}
+                />
+                { loading ? <ProductPreloader /> : '' }
                 <h3 className={style.title}>{title}</h3>
             </NavLink>
             <div className={style.row}>
